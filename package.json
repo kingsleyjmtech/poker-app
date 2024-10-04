@@ -1,0 +1,14 @@
+{
+  "name": "poker-app",
+  "version": "1.0.0",
+  "description": "Five-Card Draw Poker Game - Node.js Back-End",
+  "main": "dist/index.js",
+  "directories": {
+    "test": "tests"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "author": "Kingsley July Moseamedi",
+  "license": "MIT"
+}
