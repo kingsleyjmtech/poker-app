@@ -8,8 +8,10 @@
   },
   "scripts": {
     "start": "node dist/index.js",
+    "console": "node dist/run.js",
     "build": "tsc",
     "dev": "ts-node src/index.ts",
+    "dev-console": "ts-node src/run.ts",
     "test": "jest"
   },
   "author": "Kingsley July Moseamedi",
