@@ -1,9 +1,11 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import PokerHand from "@/components/PokerHand.vue";
+import ShuffleButton from "@/components/ShuffleButton.vue";
 </script>
 
 <template>
   <main>
-    <TheWelcome />
+    <PokerHand/>
+    <ShuffleButton/>
   </main>
 </template>
