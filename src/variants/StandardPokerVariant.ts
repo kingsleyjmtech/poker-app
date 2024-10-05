@@ -1,24 +1,40 @@
-import {Card} from "../models/Card";
-import {Value} from "../enums/Value";
+import { ICard } from "../interfaces/ICard";
+import { IPokerVariant } from "../interfaces/IPokerVariant";
+import { Value } from "../enums/Value";
 
 /**
- * Class representing a poker hand evaluator.
+ * Class representing a standard poker variant.
  */
-export class PokerHandEvaluator {
+export class StandardPokerVariant implements IPokerVariant {
+    handSize: number = 5;
     private valueOrder: Value[];
 
-    constructor(valueOrder: Value[]) {
-        this.valueOrder = valueOrder;
+    constructor() {
+        this.valueOrder = [
+            Value.Two,
+            Value.Three,
+            Value.Four,
+            Value.Five,
+            Value.Six,
+            Value.Seven,
+            Value.Eight,
+            Value.Nine,
+            Value.Ten,
+            Value.Jack,
+            Value.Queen,
+            Value.King,
+            Value.Ace,
+        ];
     }
 
     /**
      * Evaluates a poker hand and returns its rank.
-     * @param hand An array of 5 Card objects.
+     * @param hand An array of ICard objects.
      * @returns The rank of the poker hand as a string.
      */
-    evaluate(hand: Card[]): string {
-        if (hand.length !== 5) {
-            throw new Error("A poker hand must contain exactly 5 cards.");
+    evaluateHand(hand: ICard[]): string {
+        if (hand.length !== this.handSize) {
+            throw new Error(`A ${this.handSize}-card hand is required.`);
         }
 
         // Check for duplicate cards
