@@ -192,4 +192,26 @@ describe("PokerHandEvaluator", () => {
     const result = evaluator.evaluate(hand);
     expect(result).toBe("High Card (A)");
   });
+
+  test("should throw an error for duplicate cards", () => {
+    const hand = [
+      new Card(Suit.Spades, Value.Two),
+      new Card(Suit.Spades, Value.Two), // Duplicate
+      new Card(Suit.Clubs, Value.Three),
+      new Card(Suit.Hearts, Value.Four),
+      new Card(Suit.Diamonds, Value.Five),
+    ];
+    expect(() => evaluator.evaluate(hand)).toThrow("Duplicate cards detected in the hand.");
+  });
+
+  test("should throw an error for incorrect hand size", () => {
+    const hand = [
+      new Card(Suit.Spades, Value.Two),
+      new Card(Suit.Clubs, Value.Three),
+      new Card(Suit.Hearts, Value.Four),
+      new Card(Suit.Diamonds, Value.Five),
+      // Missing one card
+    ];
+    expect(() => evaluator.evaluate(hand)).toThrow("A poker hand must contain exactly 5 cards.");
+  });
 });
