@@ -4,6 +4,27 @@ import {Suit} from "../src/enums/Suit";
 import {Value} from "../src/enums/Value";
 
 describe("PokerHandEvaluator", () => {
+  let evaluator: PokerHandEvaluator;
+
+  beforeEach(() => {
+    const standardValueOrder = [
+      Value.Two,
+      Value.Three,
+      Value.Four,
+      Value.Five,
+      Value.Six,
+      Value.Seven,
+      Value.Eight,
+      Value.Nine,
+      Value.Ten,
+      Value.Jack,
+      Value.Queen,
+      Value.King,
+      Value.Ace,
+    ];
+    evaluator = new PokerHandEvaluator(standardValueOrder);
+  });
+  
   test("should evaluate a straight flush", () => {
     const hand = [
       new Card(Suit.Spades, Value.Ten),
@@ -12,7 +33,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Spades, Value.King),
       new Card(Suit.Spades, Value.Ace),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Straight Flush");
   });
 
@@ -24,7 +45,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Hearts, Value.Seven),
       new Card(Suit.Spades, Value.King),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Four of a Kind");
   });
 
@@ -36,7 +57,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Diamonds, Value.Three),
       new Card(Suit.Clubs, Value.Three),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Full House");
   });
 
@@ -48,7 +69,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Spades, Value.Ten),
       new Card(Suit.Spades, Value.Jack),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Flush");
   });
 
@@ -60,7 +81,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Clubs, Value.Queen),
       new Card(Suit.Spades, Value.King),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Straight");
   });
 
@@ -72,7 +93,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Hearts, Value.Two),
       new Card(Suit.Spades, Value.Five),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Three of a Kind");
   });
 
@@ -84,7 +105,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Diamonds, Value.Five),
       new Card(Suit.Spades, Value.Queen),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Two Pair");
   });
 
@@ -96,7 +117,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Diamonds, Value.Nine),
       new Card(Suit.Spades, Value.King),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("One Pair");
   });
 
@@ -108,7 +129,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Diamonds, Value.Jack),
       new Card(Suit.Spades, Value.King),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("High Card (K)");
   });
 
@@ -120,7 +141,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Diamonds, Value.Five),
       new Card(Suit.Spades, Value.Seven),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("High Card (7)");
   });
 
@@ -132,7 +153,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Spades, Value.Ace),
       new Card(Suit.Spades, Value.King),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Straight Flush");
   });
 
@@ -144,7 +165,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Spades, Value.Four),
       new Card(Suit.Spades, Value.Five),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("Straight Flush");
   });
 
@@ -156,7 +177,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Spades, Value.Queen),
       new Card(Suit.Hearts, Value.Ace),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("High Card (A)");
   });
 
@@ -168,7 +189,7 @@ describe("PokerHandEvaluator", () => {
       new Card(Suit.Clubs, Value.Jack),
       new Card(Suit.Spades, Value.Ace),
     ];
-    const result = PokerHandEvaluator.evaluate(hand);
+    const result = evaluator.evaluate(hand);
     expect(result).toBe("High Card (A)");
   });
 });
