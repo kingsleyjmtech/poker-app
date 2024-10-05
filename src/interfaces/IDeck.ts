@@ -1,4 +1,5 @@
 import {ICard} from "./ICard";
+import {IShuffler} from "./IShuffler";
 
 /**
  * Interface representing a deck of cards.
@@ -13,4 +14,6 @@ export interface IDeck {
     deal(numCards: number): ICard[];
 
     reset(): void;
+
+    setShuffler(shuffler: IShuffler): void;
 }

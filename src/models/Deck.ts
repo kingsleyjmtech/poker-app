@@ -18,7 +18,13 @@ export class Deck implements IDeck {
    * @param shuffler - The shuffling algorithm to use.
    */
   constructor(shuffler: IShuffler) {
-    this.suits = [Suit.Spades, Suit.Clubs, Suit.Diamonds, Suit.Hearts];
+    this.suits = [
+      Suit.Spades,
+      Suit.Clubs,
+      Suit.Diamonds,
+      Suit.Hearts
+    ];
+
     this.values = [
       Value.Two,
       Value.Three,
@@ -34,6 +40,7 @@ export class Deck implements IDeck {
       Value.King,
       Value.Ace,
     ];
+
     this.cards = [];
 
     this.shuffler = shuffler;
@@ -79,5 +86,13 @@ export class Deck implements IDeck {
   reset(): void {
     this.initializeDeck();
     this.shuffle();
+  }
+
+  /**
+   * Sets the shuffler to use for the deck.
+   * @param shuffler - The shuffler to use.
+   */
+  setShuffler(shuffler: IShuffler): void {
+    this.shuffler = shuffler;
   }
 }
