@@ -1,12 +1,49 @@
-import {Card} from "../models/Card";
+import { ICard } from "../interfaces/ICard";
+import { IPokerVariant } from "../interfaces/IPokerVariant";
+import { Value } from "../enums/Value";
 
-export class PokerHandEvaluator {
-    private static valueOrder: string[] = [
-        "2", "3", "4", "5", "6", "7", "8", "9", "10", "J", "Q", "K", "A",
-    ];
+/**
+ * Class representing a standard poker variant.
+ */
+export class StandardPokerVariant implements IPokerVariant {
+    handSize: number = 5;
+    private valueOrder: Value[];
 
-    static evaluate(hand: Card[]): string {
-        const values = hand.map((card) => card.value);
+    constructor() {
+        this.valueOrder = [
+            Value.Two,
+            Value.Three,
+            Value.Four,
+            Value.Five,
+            Value.Six,
+            Value.Seven,
+            Value.Eight,
+            Value.Nine,
+            Value.Ten,
+            Value.Jack,
+            Value.Queen,
+            Value.King,
+            Value.Ace,
+        ];
+    }
+
+    /**
+     * Evaluates a poker hand and returns its rank.
+     * @param hand An array of ICard objects.
+     * @returns The rank of the poker hand as a string.
+     */
+    evaluateHand(hand: ICard[]): string {
+        if (hand.length !== this.handSize) {
+            throw new Error(`A ${this.handSize}-card hand is required.`);
+        }
+
+        // Check for duplicate cards
+        const uniqueCards = new Set(hand.map(card => card.toString()));
+        if (uniqueCards.size !== 5) {
+            throw new Error("Duplicate cards detected in the hand.");
+        }
+
+        const values: Value[] = hand.map((card) => card.value);
         const suits = hand.map((card) => card.suit);
 
         if (this.isStraightFlush(values, suits)) return "Straight Flush";
@@ -21,11 +58,11 @@ export class PokerHandEvaluator {
         return `High Card (${this.highCard(values)})`;
     }
 
-    private static isFlush(suits: string[]): boolean {
+    private isFlush(suits: string[]): boolean {
         return suits.every((suit) => suit === suits[0]);
     }
 
-    private static isStraight(values: string[]): boolean {
+    private isStraight(values: Value[]): boolean {
         const handValues = values
             .map((v) => this.valueOrder.indexOf(v))
             .sort((a, b) => a - b);
@@ -40,37 +77,37 @@ export class PokerHandEvaluator {
         return isConsecutive || isLowStraight;
     }
 
-    private static isStraightFlush(values: string[], suits: string[]): boolean {
+    private isStraightFlush(values: Value[], suits: string[]): boolean {
         return this.isFlush(suits) && this.isStraight(values);
     }
 
-    private static isFourOfAKind(values: string[]): boolean {
+    private isFourOfAKind(values: Value[]): boolean {
         const valueCount = this.getValueCounts(values);
         return Object.values(valueCount).some((count) => count === 4);
     }
 
-    private static isFullHouse(values: string[]): boolean {
+    private isFullHouse(values: Value[]): boolean {
         const valueCount = this.getValueCounts(values);
         const counts = Object.values(valueCount);
         return counts.includes(3) && counts.includes(2);
     }
 
-    private static isThreeOfAKind(values: string[]): boolean {
+    private isThreeOfAKind(values: Value[]): boolean {
         const valueCount = this.getValueCounts(values);
         return Object.values(valueCount).some((count) => count === 3);
     }
 
-    private static isTwoPair(values: string[]): boolean {
+    private isTwoPair(values: Value[]): boolean {
         const valueCount = this.getValueCounts(values);
         return Object.values(valueCount).filter((count) => count === 2).length === 2;
     }
 
-    private static isOnePair(values: string[]): boolean {
+    private isOnePair(values: Value[]): boolean {
         const valueCount = this.getValueCounts(values);
         return Object.values(valueCount).some((count) => count === 2);
     }
 
-    private static highCard(values: string[]): string {
+    private highCard(values: Value[]): Value {
         return values.reduce((high, value) => {
             return this.valueOrder.indexOf(value) > this.valueOrder.indexOf(high)
                 ? value
@@ -78,8 +115,8 @@ export class PokerHandEvaluator {
         }, values[0]);
     }
 
-    private static getValueCounts(values: string[]): { [key: string]: number } {
-        const valueCount: { [key: string]: number } = {};
+    private getValueCounts(values: Value[]): { [key in Value]?: number } {
+        const valueCount: { [key in Value]?: number } = {};
         values.forEach((value) => {
             valueCount[value] = (valueCount[value] || 0) + 1;
         });
