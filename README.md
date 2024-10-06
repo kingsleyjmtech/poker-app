@@ -40,19 +40,33 @@ The `build-and-run.sh` is included to streamline the setup, build, and running o
    cd poker-app
    ```
 
-2. Make the script executable:
+2. If you encounter issues running the script due to line endings (-bash: ./build-and-run.sh: /bin/bash^M: bad
+   interpreter: No such file or directory), use dos2unix to convert it:
+   - Install `dos2unix` (if not installed):
+     ```sh
+     brew install dos2unix # for macOS
+     ```
+     ```sh
+     sudo apt-get install dos2unix # for Debian/Ubuntu
+     ```
+   - Convert the script:
+     ```sh
+     dos2unix build-and-run.sh
+     ```
+
+3. Make the script executable:
    ```sh
    chmod +x build-and-run.sh
    ```
 
-3. Run the script:
+4. Run the script:
    ```sh
     ./build-and-run.sh      
     ```
 
-4. The server should now be running at `http://localhost:3030`.
+5. The server should now be running at `http://localhost:3030`.
 
-5. The client should now be running at `http://localhost:4173`.
+6. The client should now be running at `http://localhost:4173`.
 
 # Setup (For any OS)
 
