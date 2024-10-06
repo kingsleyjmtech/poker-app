@@ -1,10 +1,17 @@
 import express, {NextFunction, Request, Response} from "express";
 import {PokerService} from "./services/PokerService";
+import cors from 'cors';
 
 const app = express();
 const PORT = 3030;
 
 const pokerService = new PokerService();
+
+// Use the CORS middleware and allow requests from any origin or specific origin
+app.use(cors({
+    origin: 'http://localhost:5173',
+    credentials: true,
+}));
 
 app.get("/api/v1/deal", (req: Request, res: Response) => {
     try {
