@@ -1,0 +1,67 @@
+name: Build and Test (Client App)
+
+on:
+  push:
+    branches:
+      - master
+      - development
+  pull_request:
+    branches:
+      - master
+      - development
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [16.x, 18.x, 20.x]
+
+    steps:
+      # Checkout the repository
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      # Set up Node.js environment
+      - name: Set up Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+          cache: 'npm'
+
+      # Install dependencies in the client directory
+      - name: Install Dependencies (Client)
+        working-directory: ./client
+        run: npm install
+
+      # Run Type Check in the client directory
+      - name: Type Check (Client)
+        working-directory: ./client
+        run: npm run type-check
+
+      # Lint Code in the client directory
+      - name: Lint Code (Client)
+        working-directory: ./client
+        run: npm run lint
+
+      # Build the client project
+      - name: Build Client Project
+        working-directory: ./client
+        run: npm run build
+
+      # The following steps are currently hidden/commented out
+      # # Run Unit Tests in the client directory
+      # - name: Run Unit Tests (Client)
+      #   working-directory: ./client
+      #   run: npm run test:unit
+
+      # # Run End-to-End Tests in the client directory
+      # - name: Run End-to-End Tests (Client)
+      #   working-directory: ./client
+      #   run: npm run test:e2e
+
+      # Format Code in the client directory (optional)
+      - name: Format Code (Client)
+        working-directory: ./client
+        run: npm run format
