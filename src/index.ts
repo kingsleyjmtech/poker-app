@@ -7,7 +7,7 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const app = express();
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.PORT || 3030;
 const UI_URL = process.env.UI_URL || "http://localhost:5173";
 
 const pokerService = new PokerService();
