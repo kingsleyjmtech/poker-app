@@ -82,7 +82,7 @@ You can also run the entire app (both backend and frontend) using Docker. This s
 
 2. Build and run the Docker containers for both backend and frontend:
    ```sh
-   docker-compose up --build
+   docker-compose build --no-cache && docker-compose up -d
    ```
    
 3. The server should now be running at `http://localhost:3030`.
