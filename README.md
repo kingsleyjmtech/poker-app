@@ -2,6 +2,22 @@
 
 Test your luck and skill with a hand of poker!
 
+## Prerequisites
+
+Before setting up the project, ensure you have the following installed on your system:
+
+- **Node.js**: Version 16.x, 18.x, or 20.x is required.
+- **npm**: Comes with Node.js installation.
+- **Git**: For cloning the repository.
+
+You can verify the installation by running the following commands:
+
+```sh
+node -v
+npm -v
+git --version
+```
+
 ## Endpoints For Backend
 
 - **GET /api/v1/deal**: Responds with a random hand of 5 cards and evaluation.
