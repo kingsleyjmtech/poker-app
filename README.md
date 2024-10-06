@@ -10,13 +10,35 @@ Test your luck and skill with a hand of poker!
 
 ## Postman Collection Poker App.postman_collection.json in root dir
 
-## Setup
-
-Clone the repository:
-
+## Clone the repository:
    ```sh
    git clone https://github.com/kingsleyjmtech/poker-app.git
    ```
+
+# Setup for Mac and Linux (Run in a single terminal)
+
+The `build-and-run.sh` is included to streamline the setup, build, and running of both backend and frontend.
+
+1. Navigate to the project directory:
+   ```sh
+   cd poker-app
+   ```
+
+2. Make the script executable:
+   ```sh
+   chmod +x build-and-run.sh
+   ```
+
+3. Run the script:
+   ```sh
+    ./build-and-run.sh      
+    ```
+
+4. The server should now be running at `http://localhost:3030`.
+
+5. The client should now be running at `http://localhost:4173`.
+
+# Setup (For any OS)
 
 ## Backend (Node.js)
 
