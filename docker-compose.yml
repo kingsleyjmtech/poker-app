@@ -12,8 +12,6 @@ services:
       - "3030:3030"
     volumes:
       - .:/usr/src/app
-    depends_on:
-      - frontend
 
   frontend:
     build:
@@ -28,3 +26,5 @@ services:
       - "4173:80"
     volumes:
       - ./client:/usr/src/app
+    depends_on:
+      - backend
