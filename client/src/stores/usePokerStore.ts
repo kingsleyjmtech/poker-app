@@ -17,7 +17,7 @@ export const usePokerStore = defineStore('poker', () => {
   const errorMessage = ref<string>('')
   const statusCode = ref<number | null>(null)
 
-  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3000'
+  const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:3030'
 
   const shuffleHand = async () => {
     try {
