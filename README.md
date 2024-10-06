@@ -2,6 +2,22 @@
 
 Test your luck and skill with a hand of poker!
 
+## Prerequisites
+
+Before setting up the project, ensure you have the following installed on your system:
+
+- **Node.js**: Version 16.x, 18.x, or 20.x is required.
+- **npm**: Comes with Node.js installation.
+- **Git**: For cloning the repository.
+
+You can verify the installation by running the following commands:
+
+```sh
+node -v
+npm -v
+git --version
+```
+
 ## Endpoints For Backend
 
 - **GET /api/v1/deal**: Responds with a random hand of 5 cards and evaluation.
@@ -24,19 +40,33 @@ The `build-and-run.sh` is included to streamline the setup, build, and running o
    cd poker-app
    ```
 
-2. Make the script executable:
+2. If you encounter issues running the script due to line endings (-bash: ./build-and-run.sh: /bin/bash^M: bad
+   interpreter: No such file or directory), use dos2unix to convert it:
+   - Install `dos2unix` (if not installed):
+     ```sh
+     brew install dos2unix # for macOS
+     ```
+     ```sh
+     sudo apt-get install dos2unix # for Debian/Ubuntu
+     ```
+   - Convert the script:
+     ```sh
+     dos2unix build-and-run.sh
+     ```
+
+3. Make the script executable:
    ```sh
    chmod +x build-and-run.sh
    ```
 
-3. Run the script:
+4. Run the script:
    ```sh
     ./build-and-run.sh      
     ```
 
-4. The server should now be running at `http://localhost:3030`.
+5. The server should now be running at `http://localhost:3030`.
 
-5. The client should now be running at `http://localhost:4173`.
+6. The client should now be running at `http://localhost:4173`.
 
 # Setup (For any OS)
 
