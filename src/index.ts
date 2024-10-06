@@ -1,25 +1,55 @@
 import express, {NextFunction, Request, Response} from "express";
 import {PokerService} from "./services/PokerService";
 import cors from 'cors';
+import rateLimit from 'express-rate-limit';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const PORT = 3030;
+const PORT = process.env.PORT || 3000;
+const UI_URL = process.env.UI_URL || 'http://localhost:5173';
 
 const pokerService = new PokerService();
 
-// Use the CORS middleware and allow requests from any origin or specific origin
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-}));
+// Whitelist local URLs and the UI URL from the .env file
+const whitelist = [
+    'http://localhost',
+    'http://127.0.0.1',
+    UI_URL
+];
 
+// Set up CORS options to allow only whitelisted URLs
+const corsOptions = {
+    origin: function (origin: string | undefined, callback: Function) {
+        if (origin && whitelist.some(url => origin.startsWith(url))) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+};
+
+// Use CORS with the defined options
+app.use(cors(corsOptions));
+
+// Set up rate limiter middleware (limits to 60 requests per minute per IP)
+const limiter = rateLimit({
+    windowMs: 60 * 1000, // 1 minute
+    limit: 60, // limit each IP to 60 requests per windowMs
+    message: 'Too many requests from this IP, please try again after a minute.'
+});
+
+// Apply the rate limiter to all requests
+app.use(limiter);
+
+// Deal route
 app.get("/api/v1/deal", (req: Request, res: Response) => {
     try {
-        // Get the variant and shuffler from query parameters (defaults to "standard" variant and "fisherYates" shuffler)
         const variant = req.query.variant as "standard" | "badugi" || "standard";
         const shufflerType = req.query.shuffler as "fisherYates" | "overhand" || "fisherYates";
 
-        // Deal and evaluate a poker hand based on the specified variant and shuffler
         const {hand, evaluation} = pokerService.dealHand(5, variant, shufflerType);
 
         res.json({
@@ -28,7 +58,7 @@ app.get("/api/v1/deal", (req: Request, res: Response) => {
         });
     } catch (error) {
         res.status(400).json({
-            error: (error as Error).message,
+            message: (error as Error).message,
         });
     }
 });
@@ -36,7 +66,7 @@ app.get("/api/v1/deal", (req: Request, res: Response) => {
 // Error handling middleware
 app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
     res.status(500).json({
-        error: err.message,
+        message: err.message,
     });
 });
 
