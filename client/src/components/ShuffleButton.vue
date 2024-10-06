@@ -1,16 +1,21 @@
 <template>
-  <div class="shuffle-button">
-    <button @click="shuffleHand">Shuffle and Deal</button>
-  </div>
+  <button
+      @click="shuffleHand"
+      class="mt-10 px-8 py-4 bg-yellow-500 hover:bg-yellow-600 text-gray-900 font-bold text-xl rounded-full shadow-lg transition duration-300 ease-in-out"
+  >
+    {{ evaluation ? 'Shuffle and Deal Again' : 'Shuffle and Deal' }}
+  </button>
 </template>
 
 <script lang="ts">
-import {defineComponent} from 'vue';
-import {usePokerStore} from '@/stores/usePokerStore';
+import { defineComponent, computed } from 'vue';
+import { usePokerStore } from '@/stores/usePokerStore';
 
 export default defineComponent({
   setup() {
     const pokerStore = usePokerStore();
+
+    const evaluation = computed(() => pokerStore.evaluation);
 
     const shuffleHand = async () => {
       await pokerStore.shuffleHand();
@@ -18,19 +23,12 @@ export default defineComponent({
 
     return {
       shuffleHand,
+      evaluation,
     };
   },
 });
 </script>
 
 <style scoped>
-button {
-  padding: 10px 20px;
-  font-size: 16px;
-  background-color: #42b983;
-  color: white;
-  border: none;
-  border-radius: 5px;
-  cursor: pointer;
-}
+/*  */
 </style>
