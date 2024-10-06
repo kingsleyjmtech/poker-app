@@ -6,7 +6,7 @@ Test your luck and skill with a hand of poker!
 
 Before setting up the project, ensure you have the following installed on your system:
 
-- **Node.js**: Version 16.x, 18.x, or 20.x is required.
+- **Node.js**: Version 18.x, or 20.x is required.
 - **npm**: Comes with Node.js installation.
 - **Git**: For cloning the repository.
 - **Docker**: (if using the Docker setup).
