@@ -9,6 +9,7 @@ Before setting up the project, ensure you have the following installed on your s
 - **Node.js**: Version 16.x, 18.x, or 20.x is required.
 - **npm**: Comes with Node.js installation.
 - **Git**: For cloning the repository.
+- **Docker**: (if using the Docker setup).
 
 You can verify the installation by running the following commands:
 
@@ -16,6 +17,8 @@ You can verify the installation by running the following commands:
 node -v
 npm -v
 git --version
+docker --version
+docker-compose --version
 ```
 
 ## Endpoints For Backend
@@ -67,6 +70,24 @@ The `build-and-run.sh` is included to streamline the setup, build, and running o
 5. The server should now be running at `http://localhost:3030`.
 
 6. The client should now be running at `http://localhost:4173`.
+
+# Docker Setup (Run in a single terminal)
+
+You can also run the entire app (both backend and frontend) using Docker. This simplifies the setup by eliminating the need to manually install Node.js and npm.
+
+1. Navigate to the project directory:
+   ```sh
+   cd poker-app
+   ```
+
+2. Build and run the Docker containers for both backend and frontend:
+   ```sh
+   docker-compose up --build
+   ```
+   
+3. The server should now be running at `http://localhost:3030`.
+
+4. The client should now be running at `http://localhost:4173`.
 
 # Setup (For any OS)
 
