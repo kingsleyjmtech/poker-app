@@ -2,17 +2,37 @@ import express, {NextFunction, Request, Response} from "express";
 import {PokerService} from "./services/PokerService";
 import cors from 'cors';
 import rateLimit from 'express-rate-limit';
+import dotenv from 'dotenv';
+
+dotenv.config();
 
 const app = express();
-const PORT = 3030;
+const PORT = process.env.PORT || 3000;
+const UI_URL = process.env.UI_URL || 'http://localhost:5173';
 
 const pokerService = new PokerService();
 
-// Set up CORS
-app.use(cors({
-    origin: 'http://localhost:5173',
-    credentials: true,
-}));
+// Whitelist local URLs and the UI URL from the .env file
+const whitelist = [
+    'http://localhost',
+    'http://127.0.0.1',
+    UI_URL
+];
+
+// Set up CORS options to allow only whitelisted URLs
+const corsOptions = {
+    origin: function (origin: string | undefined, callback: Function) {
+        if (origin && whitelist.some(url => origin.startsWith(url))) {
+            callback(null, true);
+        } else {
+            callback(new Error('Not allowed by CORS'));
+        }
+    },
+    credentials: true
+};
+
+// Use CORS with the defined options
+app.use(cors(corsOptions));
 
 // Set up rate limiter middleware (limits to 60 requests per minute per IP)
 const limiter = rateLimit({
