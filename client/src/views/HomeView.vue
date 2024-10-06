@@ -1,9 +1,9 @@
 <script setup lang="ts">
-import PokerHand from "@/components/PokerHand.vue";
+import PokerHand from '@/components/PokerHand.vue'
 </script>
 
 <template>
   <main>
-    <PokerHand/>
+    <PokerHand />
   </main>
 </template>
