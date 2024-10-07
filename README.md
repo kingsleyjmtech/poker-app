@@ -21,6 +21,16 @@ docker --version
 docker-compose --version
 ```
 
+## Tech Stack
+
+- **Backend**: Node.js, Express.js, TypeScript.
+- **Frontend**: Vue.js, TypeScript, Tailwind CSS.
+
+## Project Structure
+
+- **root dir**: Contains the backend code. (Note this will better be in a folder called server)
+- **client**: Contains the frontend code.
+
 ## Endpoints For Backend
 
 - **GET /api/v1/deal**: Responds with a random hand of 5 cards and evaluation.
