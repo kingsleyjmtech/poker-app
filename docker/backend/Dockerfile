@@ -10,6 +10,9 @@ RUN npm install
 COPY . .
 RUN npm run build
 
+ # Remove 'client' directory after copying the files
+RUN rm -rf client
+
 # Production image
 FROM node:20-alpine AS production
 
